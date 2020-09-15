@@ -56,6 +56,23 @@ class db
         $sql->execute();
     }
 
+    public function deleteData($id){
+        $sql=$this->pdo->prepare("delete from {$this->tbl} where id='$id'");
+        $sql->execute();
+    }
+    public function searchData($name,$value){
+        $sql=$this->pdo->prepare("select * FROM {$this->tbl} where $name='$value'");
+        $sql->execute();
+        $results=$sql->fetchAll(PDO::FETCH_OBJ);
+
+    }
+    public function likeData($name,$value){
+        $sql=$this->pdo->prepare("select * FROM {$this->tbl} where $name LIKE '$value'");
+        $sql->execute();
+        $results=$sql->fetchAll(PDO::FETCH_OBJ);
+
+    }
+
 }
 $obj=new db();
 $obj->setTbl('user_tbl');
