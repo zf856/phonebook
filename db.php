@@ -29,26 +29,35 @@ class db
     {
         $this->tbl = $tbl;
     }
-    public function selectData($data){
-        if(is_array($data)){
-            $data="'" .implode("'", $data)."'" ;
-
+    public function selectData($name){
+        if(is_array($name)){
+            $names="'" .implode("','", $name)."'" ;
+            //var_dump($names);die;
         }
+        $stm=$this->pdo->prepare("select {$names} FROM {$this->tbl}");
+        $stm->execute();
+        $row=$stm->fetchAll(PDO::FETCH_OBJ);
+        var_dump($row);
     }
-    public function insertData($data){
+    public function insertData($filds,$data){
         if(is_array($data)){
-            $data="'" .implode("'", $data)."'" ;
-            $sql="INSERT INTO user_tbl (name,lastname) VALUES ('$data[name]','$data[lastname]')";
-
+            $names="'" .implode("','", $data)."'" ;
+            $filds=implode(",", $filds);
+            $sql=$this->pdo->prepare("insert into {$this->tbl} ($filds) VALUES ($names)");
+            $sql->execute();
         }
     }
 }
 
-
-
-
-
-
 $obj=new db();
 $obj->setTbl('user_tbl');
-$obj->insert("name");
+//$obj->selectData(['name','lastname']);
+$obj->insertData(['name','lastname','email'],['aaaa','bbbbbbb','ass@a.com']);
+
+
+
+
+
+
+
+
