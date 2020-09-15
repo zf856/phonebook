@@ -316,7 +316,7 @@ session_start();
                         </a>
                         <ul class="sub">
                             <li><a class="" href="">لیست</a></li>
-                            <li><a class="" href="dashbord.php?contact=add">افزودن</a></li>
+                            <li><a class="" href="">افزودن</a></li>
                         </ul>
                     </li>
                     
@@ -332,14 +332,7 @@ session_start();
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
-                <?php
-                    if(isset($_GET['contact'])){
-                       if($_GET['contact']=='add'){
-                        include_once 'contact/add.php';
-                       }
-                    }
-
-                ?>
+                Conetnt
             </section>
         </section>
         <!--main content end-->
