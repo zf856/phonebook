@@ -47,13 +47,21 @@ class db
             $sql->execute();
         }
     }
-}
+    public function editData($filds,$data,$id){
+        foreach ($filds as $key=>$val){
+            $txt[]=$val."='".$data[$key]."'";
+        }
+        $query=implode(",",$txt);
+        $sql=$this->pdo->prepare("update {$this->tbl} set ".$query."where id ='$id'");
+        $sql->execute();
+    }
 
+}
 $obj=new db();
 $obj->setTbl('user_tbl');
 //$obj->selectData(['name','lastname']);
-$obj->insertData(['name','lastname','email'],['aaaa','bbbbbbb','ass@a.com']);
-
+//$obj->insertData(['name','lastname','email'],['aaaa','bbbbbbb','ass@a.com']);
+$obj->editData(['name','lastname','email','password'],['aaaa','bbbbbbb','assssasda@a.com','123456'],25);
 
 
 
