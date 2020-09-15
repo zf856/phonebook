@@ -47,6 +47,7 @@ class db
             $sql->execute();
         }
     }
+    #5
     public function editData($filds,$data,$id){
         foreach ($filds as $key=>$val){
             $txt[]=$val."='".$data[$key]."'";
@@ -55,7 +56,7 @@ class db
         $sql=$this->pdo->prepare("update {$this->tbl} set ".$query."where id ='$id'");
         $sql->execute();
     }
-
+    #6
     public function deleteData($id){
         $sql=$this->pdo->prepare("delete from {$this->tbl} where id='$id'");
         $sql->execute();
