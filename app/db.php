@@ -32,12 +32,15 @@ class db
     public function selectData($name){
         if(is_array($name)){
             $names="'" .implode("','", $name)."'" ;
-            //var_dump($names);die;
+            $stm=$this->pdo->prepare("select {$names} FROM {$this->tbl}");
         }
-        $stm=$this->pdo->prepare("select {$names} FROM {$this->tbl}");
+        else{
+            $stm=$this->pdo->prepare("select {$name} FROM {$this->tbl}");
+        }
+       // var_dump($stm);die;
         $stm->execute();
         $row=$stm->fetchAll(PDO::FETCH_OBJ);
-        var_dump($row);
+        return $row;
     }
     public function insertData($filds,$data){
         if(is_array($data)){
@@ -58,6 +61,7 @@ class db
 
     public function deleteData($id){
         $sql=$this->pdo->prepare("delete from {$this->tbl} where id='$id'");
+        //var_dump($sql);die;
         $sql->execute();
     }
     public function searchData($name,$value){

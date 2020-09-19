@@ -9,4 +9,9 @@ class contact extends db{
         $filds=array_keys($data);
        $this->insertData($filds,$data);
     }
+    public function list_contact(){
+        $this->setTbl($this->tbl);
+        $res=$this->selectData('*');
+        return $res;
+    }
 }

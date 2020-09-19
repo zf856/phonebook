@@ -315,8 +315,8 @@ session_start();
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="" href="">لیست</a></li>
-                            <li><a class="" href="">افزودن</a></li>
+                            <li><a class="" href="dashbord.php?contact=list">لیست</a></li>
+                            <li><a class="" href="dashbord.php?contact=add">افزودن</a></li>
                         </ul>
                     </li>
                     
@@ -332,7 +332,24 @@ session_start();
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
-                Conetnt
+                <?php
+                    if(isset($_GET['contact'])){
+                       if($_GET['contact']=='add'){
+                        include_once 'contact/add.php';
+                       }
+                        elseif($_GET['contact']=='list'){
+                            include_once 'contact/list.php';
+                        }
+                       elseif($_GET['contact']=='delete'){
+                           $id=$_GET['id'];
+                           include_once 'app/contact.php';
+                           $obj1=new contact();
+                           $obj1->setTbl('contact_tbl');
+                           $obj1->deleteData($id);
+                       }
+                    }
+
+                ?>
             </section>
         </section>
         <!--main content end-->
