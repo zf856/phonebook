@@ -37,7 +37,6 @@ class db
         else{
             $stm=$this->pdo->prepare("select {$name} FROM {$this->tbl}");
         }
-       // var_dump($stm);die;
         $stm->execute();
         $row=$stm->fetchAll(PDO::FETCH_OBJ);
         return $row;
@@ -52,16 +51,16 @@ class db
     }
     public function editData($filds,$data,$id){
         foreach ($filds as $key=>$val){
-            $txt[]=$val."='".$data[$key]."'";
+            $txt[]=$val."='".$data[$val]."'";
         }
         $query=implode(",",$txt);
         $sql=$this->pdo->prepare("update {$this->tbl} set ".$query."where id ='$id'");
+        //var_dump($sql);die;
         $sql->execute();
     }
 
     public function deleteData($id){
         $sql=$this->pdo->prepare("delete from {$this->tbl} where id='$id'");
-        //var_dump($sql);die;
         $sql->execute();
     }
     public function searchData($name,$value){
@@ -72,11 +71,20 @@ class db
 
     }
     public function likeData($name,$value){
-        $sql=$this->pdo->prepare("select * FROM {$this->tbl} where $name LIKE '$value'");
+        $sql=$this->pdo->prepare("select * FROM {$this->tbl} where $name LIKE '%$value%'");
         $sql->execute();
-        $results=$sql->fetch(PDO::FETCH_OBJ);
+        $results=$sql->fetchAll(PDO::FETCH_OBJ);
+        return $results;
+    }
+    public function showEditData($id){
+        $sql=$this->pdo->prepare("select * FROM {$this->tbl} where id='$id'");
+        $sql->execute();
+        $results=$sql->fetch(PDO::FETCH_ASSOC);
+
+        return $results;
     }
 }
+
 
 
 

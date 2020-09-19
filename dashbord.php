@@ -317,6 +317,7 @@ session_start();
                         <ul class="sub">
                             <li><a class="" href="dashbord.php?contact=list">لیست</a></li>
                             <li><a class="" href="dashbord.php?contact=add">افزودن</a></li>
+                            <li><a class="" href="dashbord.php?contact=search">جستجو</a></li>
                         </ul>
                     </li>
                     
@@ -340,12 +341,18 @@ session_start();
                         elseif($_GET['contact']=='list'){
                             include_once 'contact/list.php';
                         }
-                       elseif($_GET['contact']=='delete'){
-                           $id=$_GET['id'];
+                       elseif($_GET['contact']=='delete') {
+                           $id = $_GET['id'];
                            include_once 'app/contact.php';
-                           $obj1=new contact();
+                           $obj1 = new contact();
                            $obj1->setTbl('contact_tbl');
                            $obj1->deleteData($id);
+                       }
+                       elseif($_GET['contact']=='search'){
+                           include_once 'contact/search.php';
+                       }
+                       elseif($_GET['contact']=='edit'){
+                           include_once 'contact/edit.php';
                        }
                     }
 
